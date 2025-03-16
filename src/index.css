@@ -1,0 +1,26 @@
+@font-face {
+  font-family: poppins;
+  src: url(../src/fonts/Poppins-Regular.ttf);
+}
+
+body {
+  margin: 0;
+  font-family: poppins;
+  background-color: var(--primary-background);
+}
+
+code {
+  font-family: poppins;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 15px;
+  background-color: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #f4f6f9;
+  border-radius: 15px;
+}

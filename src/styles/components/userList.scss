@@ -1,0 +1,98 @@
+.user-list-container {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  height: 70vh;
+  overflow-y: auto;
+}
+
+.user-list-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #333;
+  text-align: center;
+}
+
+.user-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.user-card {
+  background-color: #fff;
+  padding: 20px;
+  width: 260px;
+  border-radius: 12px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.user-card:hover {
+  box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px); /* Slight lift effect */
+}
+
+.user-card-header {
+  margin-bottom: 15px;
+}
+
+.user-card-header h3 {
+  font-size: 22px;
+  color: #333;
+}
+
+.user-card-header p {
+  font-size: 16px;
+  color: #777;
+  font-weight: 500;
+}
+
+.user-email {
+  font-size: 16px;
+  color: #555;
+  margin: 15px 0;
+  font-weight: 400;
+}
+
+.user-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.edit-btn,
+.delete-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 5px;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+  color: #fff;
+  background-color: #007bff;
+  transform: scale(1.05);
+}
+
+.delete-btn {
+  color: #dc3545;
+}
+
+.delete-btn:hover {
+  background-color: #dc3545;
+}
+
+.edit-btn:focus,
+.delete-btn:focus {
+  outline: none;
+}

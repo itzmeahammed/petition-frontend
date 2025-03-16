@@ -1,0 +1,36 @@
+.admin-stats {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 20px;
+  overflow-y: auto;
+  height: 70vh;
+}
+
+.chart-card {
+  background-color: #fff;
+  padding: 20px;
+  margin: 15px;
+  border-radius: 10px;
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
+  width: 75%;
+}
+
+.chart-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .admin-stats {
+    flex-direction: column;
+    align-items: center;
+  }
+  .chart-card {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+}

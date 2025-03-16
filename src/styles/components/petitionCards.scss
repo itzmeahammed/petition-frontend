@@ -1,0 +1,93 @@
+.dashboard-tab {
+  .dashboard-tab-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .petitions-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    height: 60vh;
+    overflow-y: auto;
+    padding: 16px;
+
+    .petition-card {
+      background-color: #f4f4f4;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-10px);
+      }
+
+      .petition-card-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+
+        .petition-title {
+          font-size: 18px;
+          font-weight: bold;
+          color: #333;
+        }
+      }
+
+      .petition-description {
+        color: #555;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .petition-details {
+        font-size: 14px;
+        margin-bottom: 10px;
+        color: #666;
+      }
+
+      .view-more-button {
+        background-color: #3498db;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #2980b9;
+        }
+      }
+    }
+  }
+}
+
+.modal-box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  margin: 100px auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .MuiButton-root {
+    margin-top: 20px;
+  }
+}

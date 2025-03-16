@@ -1,0 +1,111 @@
+.add-petition-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  transition: all 0.3s ease;
+  height: 70vh;
+  overflow-y: auto;
+
+  h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .MuiTextField-root {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
+
+    .MuiDatePicker-root {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
+
+    .MuiButton-root {
+      border-radius: 10px;
+      font-size: 16px;
+      padding: 12px;
+      transition: background-color 0.3s ease;
+    }
+
+    .MuiButton-contained {
+      background-color: #000000;
+      color: white;
+      &:hover {
+        background-color: #000000;
+      }
+    }
+
+    .MuiButton-outlined {
+      background-color: transparent;
+      background-color: black;
+      &:hover {
+        background-color: black;
+        color: white;
+      }
+    }
+  }
+
+  .MuiInputBase-root {
+    border-radius: 8px;
+  }
+
+  .MuiOutlinedInput-root {
+    border-radius: 8px;
+  }
+
+  .MuiInputLabel-root {
+    font-size: 16px;
+    color: #555;
+  }
+
+  .MuiSelect-root {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .MuiMenuItem-root {
+    font-size: 16px;
+  }
+
+  .button-petition {
+    background-color: black !important;
+  }
+
+  .modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    Button {
+      flex: 1;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .add-petition-form {
+    padding: 15px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .MuiButton-root {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+}
