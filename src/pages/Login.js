@@ -46,7 +46,7 @@ const LoginPage = () => {
       localStorage.setItem("tokenExp", exp);
       if (role === "user") navigate("/user/dashboard");
       else if (role === "admin") navigate("/admin/dashboard");
-      else if (role === "superAdmin") navigate("/superAdmin/dashboard");
+      else if (role === "superadmin") navigate("/superAdmin/dashboard");
     } catch (err) {
       setError("Invalid credentials, please try again.");
     }
@@ -99,19 +99,19 @@ const LoginPage = () => {
   return (
     <>
       {showSignup ? (
-        <div className="login-page">
-          <div className="login-page-right">
-            <h1 className="heading-login">
+        <div className='login-page'>
+          <div className='login-page-right'>
+            <h1 className='heading-login'>
               Welcome to <br /> JusticeHub
             </h1>
-            <img src={justice} alt="JusticeHub Logo" className="justice-logo" />
+            <img src={justice} alt='JusticeHub Logo' className='justice-logo' />
           </div>
-          <div className="login-page-left">
+          <div className='login-page-left'>
             <h1>Sign up</h1>
-            <div className="login-page-container">
+            <div className='login-page-container'>
               <TextField
-                label="Username"
-                variant="outlined"
+                label='Username'
+                variant='outlined'
                 fullWidth
                 value={signUpUsername}
                 onChange={(e) => {
@@ -123,8 +123,8 @@ const LoginPage = () => {
                 sx={{ mb: 2 }}
               />
               <TextField
-                label="Email"
-                variant="outlined"
+                label='Email'
+                variant='outlined'
                 fullWidth
                 value={signUpEmail}
                 onChange={(e) => {
@@ -136,8 +136,8 @@ const LoginPage = () => {
                 sx={{ mb: 2 }}
               />
               <TextField
-                label="Mobile Number"
-                variant="outlined"
+                label='Mobile Number'
+                variant='outlined'
                 fullWidth
                 value={mobile}
                 onChange={(e) => {
@@ -149,9 +149,9 @@ const LoginPage = () => {
                 sx={{ mb: 2 }}
               />
               <TextField
-                label="Password"
-                type="password"
-                variant="outlined"
+                label='Password'
+                type='password'
+                variant='outlined'
                 fullWidth
                 value={signUpPassword}
                 onChange={(e) => {
@@ -164,9 +164,9 @@ const LoginPage = () => {
               />
 
               <FormControl fullWidth sx={{ mb: 2 }}>
-                <InputLabel id="role-label">Role</InputLabel>
+                <InputLabel id='role-label'>Role</InputLabel>
                 <Select
-                  labelId="role-label"
+                  labelId='role-label'
                   value={role}
                   onChange={(e) => {
                     setRole(e.target.value);
@@ -174,15 +174,15 @@ const LoginPage = () => {
                   }}
                   error={!!error}
                 >
-                  <MenuItem value="user">User</MenuItem>
-                  <MenuItem value="admin">Admin</MenuItem>
-                  <MenuItem value="superAdmin">Super Admin</MenuItem>
+                  <MenuItem value='user'>User</MenuItem>
+                  <MenuItem value='admin'>Admin</MenuItem>
+                  <MenuItem value='superadmin'>Super Admin</MenuItem>
                 </Select>
               </FormControl>
 
               <Button
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 onClick={handleSignUp}
                 fullWidth
                 disabled={isSignUpButtonDisabled}
@@ -199,8 +199,8 @@ const LoginPage = () => {
               </Button>
               <h4>OR</h4>
               <Button
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 fullWidth
                 onClick={() => setShowSignup(false)}
                 sx={{
@@ -218,27 +218,27 @@ const LoginPage = () => {
           </div>
         </div>
       ) : (
-        <div className="login-page">
-          <div className="login-page-left">
+        <div className='login-page'>
+          <div className='login-page-left'>
             <h1>Login</h1>
-            <div className="login-page-container">
+            <div className='login-page-container'>
               <TextField
-                label="Email"
-                variant="outlined"
+                label='Email'
+                variant='outlined'
                 fullWidth
                 value={loginEmail}
                 onChange={(e) => {
                   setLoginEmail(e.target.value);
-                  setError(""); // Clear error when typing
+                  setError("");
                 }}
                 error={!!error}
                 helperText={error}
                 sx={{ mb: 2 }}
               />
               <TextField
-                label="Password"
-                type="password"
-                variant="outlined"
+                label='Password'
+                type='password'
+                variant='outlined'
                 fullWidth
                 value={loginPassword}
                 onChange={(e) => {
@@ -250,8 +250,8 @@ const LoginPage = () => {
                 sx={{ mb: 2 }}
               />
               <Button
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 onClick={handleLogin}
                 fullWidth
                 disabled={isLoginButtonDisabled}
@@ -268,8 +268,8 @@ const LoginPage = () => {
               </Button>
               <h4>OR</h4>
               <Button
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 fullWidth
                 onClick={() => setShowSignup(true)}
                 sx={{
@@ -285,11 +285,11 @@ const LoginPage = () => {
               </Button>
             </div>
           </div>
-          <div className="login-page-right">
-            <h1 className="heading-login">
+          <div className='login-page-right'>
+            <h1 className='heading-login'>
               Welcome to <br /> JusticeHub
             </h1>
-            <img src={justice} alt="JusticeHub Logo" className="justice-logo" />
+            <img src={justice} alt='JusticeHub Logo' className='justice-logo' />
           </div>
         </div>
       )}

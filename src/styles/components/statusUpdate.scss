@@ -1,0 +1,120 @@
+.status-update-container {
+  padding: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  height: 70vh;
+  overflow-y: auto;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.petition-card {
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+  padding: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  background-color: #fafafa;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.petition-card:hover {
+  background-color: #f4f4f4;
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.petition-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.petition-status {
+  font-size: 16px;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 10px;
+}
+
+.petition-category,
+.petition-tags {
+  font-size: 14px;
+  color: #555;
+}
+
+.status-update-form {
+  margin-top: 30px;
+  padding: 25px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background-color: #fafafa;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.status-update-form h6 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.MuiTextField-root {
+  margin-bottom: 24px;
+}
+
+.MuiButton-root {
+  font-size: 16px;
+  padding: 12px;
+  font-weight: 600;
+}
+
+.MuiButton-contained {
+  background-color: #3498db;
+  color: white;
+  border-radius: 8px;
+  &:hover {
+    background-color: #2980b9;
+  }
+}
+
+.MuiButton-outlined {
+  background-color: transparent;
+  color: #3498db;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  font-weight: 600;
+  &:hover {
+    background-color: #3498db;
+    color: white;
+  }
+}
+
+.error-message {
+  font-size: 14px;
+  color: red;
+  margin-top: 10px;
+}
+
+.petition-card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.petition-user {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2ecc71; /* Green for the user */
+  margin-bottom: 5px;
+}
+
+.petition-station {
+  font-size: 14px;
+  color: #e67e22; /* Orange for the station */
+  font-weight: 600;
+  margin-top: 5px;
+}

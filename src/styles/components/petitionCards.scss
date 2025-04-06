@@ -29,11 +29,33 @@
         display: flex;
         align-items: center;
         margin-bottom: 15px;
+        flex-direction: column;
 
         .petition-title {
           font-size: 18px;
           font-weight: bold;
           color: #333;
+        }
+
+        .petition-user {
+          font-size: 14px;
+          color: #cc2e2e; /* Highlight color */
+          font-weight: bold;
+          margin-bottom: 10px;
+          text-transform: capitalize;
+        }
+
+        .petition-station {
+          font-size: 14px;
+          color: #e67e22; /* A warm orange color to highlight station */
+          margin-top: 5px;
+          font-weight: bold;
+        }
+
+        .petition-details {
+          font-size: 14px;
+          margin-bottom: 10px;
+          color: #666;
         }
       }
 
@@ -67,13 +89,17 @@
   }
 }
 
-.modal-box {
+.modal-box-petition {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
   width: 80%;
   max-width: 600px;
-  margin: 100px auto;
+  height: 90vh;
+  overflow-y: auto;
+  position: absolute;
+  top: 2%;
+  left: 25%;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 
   h2 {
@@ -85,6 +111,33 @@
     margin-bottom: 10px;
     font-size: 16px;
     color: #333;
+  }
+
+  .solution-highlight {
+    background-color: #f1f8e9;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #388e3c;
+    margin-bottom: 20px;
+  }
+
+  .status-highlight {
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 18px;
+  }
+
+  .status-highlight.pending {
+    color: #f39c12;
+    background-color: #fff3e0;
+  }
+
+  .status-highlight.completed {
+    color: #2ecc71;
+    background-color: #e8f5e9;
   }
 
   .MuiButton-root {

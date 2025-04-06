@@ -22,23 +22,23 @@ const userData = [
 
 const UserList = () => {
   return (
-    <div className="user-list-container">
-      <h2 className="user-list-title">User List</h2>
-      <div className="user-list">
+    <div className='user-list-container'>
+      <h2 className='user-list-title'>User List</h2>
+      <div className='user-list'>
         {userData.map((user) => (
-          <div key={user.id} className="user-card">
-            <div className="user-card-header">
+          <div key={user.id} className='user-card'>
+            <div className='user-card-header'>
               <h3>{user.name}</h3>
               <p>{user.role}</p>
             </div>
-            <p className="user-email">{user.email}</p>
-            <div className="user-actions">
-              <button className="edit-btn">
+            <p className='user-email'>{user.email}</p>
+            <div className='user-actions'>
+              {/* <button className='edit-btn'>
                 <FaEdit /> Edit
               </button>
-              <button className="delete-btn">
+              <button className='delete-btn'>
                 <FaTrash /> Delete
-              </button>
+              </button> */}
             </div>
           </div>
         ))}

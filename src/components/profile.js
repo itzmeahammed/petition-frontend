@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -10,19 +10,42 @@ import {
   TextField,
   Box,
 } from "@mui/material";
+import { getUser } from "../utils/api"; // Assuming you have an API function to get user data
+import { updateUser } from "../utils/api"; // Importing the updateUser API function
 import "../styles/components/profile.scss";
-
-const user = {
-  username: "naveen",
-  number: "1234456765",
-  email: "person123@gmail.com",
-  role: "user",
-  password: "user123",
-};
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState({ ...user });
+  const [formData, setFormData] = useState({
+    username: "",
+    number: "",
+    email: "",
+    role: "",
+  });
+  const [originalData, setOriginalData] = useState({});
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch user data on component mount
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          setError("Authentication required.");
+          return;
+        }
+        const response = await getUser(token);
+        setFormData(response.data); // Assuming the response contains the user data
+        setOriginalData(response.data); // Store the original data
+      } catch (err) {
+        setError("Failed to load user data");
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   // Function to open the modal
   const handleOpen = () => {
@@ -43,10 +66,33 @@ const Profile = () => {
     }));
   };
 
-  // Function to handle form submission (for now just log the data)
-  const handleSubmit = () => {
-    console.log("Updated Profile Data:", formData);
-    handleClose(); // Close the modal after submission
+  // Function to handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validation
+    if (!formData.username || !formData.email || !formData.number) {
+      setError("All fields are required!");
+      return;
+    }
+
+    // Check for changes and only send the updated fields
+    const updatedData = {};
+    if (formData.username !== originalData.username)
+      updatedData.username = formData.username;
+    if (formData.email !== originalData.email)
+      updatedData.email = formData.email;
+    if (formData.number !== originalData.number)
+      updatedData.number = formData.number;
+
+    try {
+      const token = localStorage.getItem("authToken");
+      const response = await updateUser(updatedData, token); // Send only updated fields
+      console.log("Profile updated:", response.data);
+      handleClose(); // Close the modal after submission
+    } catch (err) {
+      setError("Failed to update profile.");
+    }
   };
 
   return (
@@ -56,25 +102,21 @@ const Profile = () => {
           <div className="profile-header">
             <Avatar className="profile-avatar" />
             <Typography variant="h4" className="profile-name">
-              {user.username}
+              {formData.username}
             </Typography>
             <Typography variant="body2" className="profile-role">
-              Role: {user.role}
+              Role: {formData.role}
             </Typography>
           </div>
 
           <Grid container spacing={2} className="profile-details">
             <Grid item xs={12} sm={6}>
               <Typography variant="h6">Email</Typography>
-              <Typography variant="body1">{user.email}</Typography>
+              <Typography variant="body1">{formData.email}</Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="h6">Phone Number</Typography>
-              <Typography variant="body1">{user.number}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="h6">Password</Typography>
-              <Typography variant="body1">{user.password}</Typography>
+              <Typography variant="body1">{formData.number}</Typography>
             </Grid>
           </Grid>
 
@@ -87,9 +129,6 @@ const Profile = () => {
             >
               Edit Profile
             </Button>
-            <Button variant="outlined" color="secondary" fullWidth>
-              Change Password
-            </Button>
           </div>
         </CardContent>
       </Card>
@@ -101,6 +140,7 @@ const Profile = () => {
             Edit Profile
           </Typography>
           <form onSubmit={handleSubmit}>
+            {error && <p className="error-message">{error}</p>}
             <TextField
               label="Username"
               variant="outlined"
@@ -126,15 +166,6 @@ const Profile = () => {
               margin="normal"
               value={formData.number}
               name="number"
-              onChange={handleChange}
-            />
-            <TextField
-              label="Password"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              value={formData.password}
-              name="password"
               onChange={handleChange}
             />
             <div className="modal-buttons">

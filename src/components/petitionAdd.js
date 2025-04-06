@@ -9,6 +9,7 @@ const AddPetitionForm = () => {
   const [petitionTitle, setPetitionTitle] = useState("");
   const [petitionDescription, setPetitionDescription] = useState("");
   const [petitionContent, setPetitionContent] = useState("");
+  const [station, setStation] = useState(""); // State for the station field
   const [date, setDate] = useState(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +18,13 @@ const AddPetitionForm = () => {
     e.preventDefault();
 
     // Form validation
-    if (!petitionTitle || !petitionDescription || !petitionContent || !date) {
+    if (
+      !petitionTitle ||
+      !petitionDescription ||
+      !petitionContent ||
+      !date ||
+      !station
+    ) {
       setError("All fields are required!");
       return;
     }
@@ -28,6 +35,7 @@ const AddPetitionForm = () => {
       title: petitionTitle,
       description: petitionDescription,
       content: petitionContent,
+      station: station, // Include the station field
       date: moment(date).format("YYYY-MM-DD"), // Date format
     };
 
@@ -40,6 +48,7 @@ const AddPetitionForm = () => {
       setPetitionTitle("");
       setPetitionDescription("");
       setPetitionContent("");
+      setStation(""); // Reset station field
       setDate(null);
       setError("");
     } catch (err) {
@@ -50,42 +59,55 @@ const AddPetitionForm = () => {
   };
 
   return (
-    <div className="add-petition-form">
+    <div className='add-petition-form'>
       <h2>Add a New Petition</h2>
       <form onSubmit={handleSubmit}>
-        {error && <p className="error-message">{error}</p>}
+        {error && <p className='error-message'>{error}</p>}
         <TextField
-          label="Petition Title"
-          variant="outlined"
+          label='Petition Title'
+          variant='outlined'
           fullWidth
           value={petitionTitle}
           onChange={(e) => setPetitionTitle(e.target.value)}
-          margin="normal"
+          margin='normal'
           required
           sx={{ mb: 2 }}
         />
         <TextField
-          label="Petition Description"
-          variant="outlined"
+          label='Petition Description'
+          variant='outlined'
           fullWidth
           value={petitionDescription}
           onChange={(e) => setPetitionDescription(e.target.value)}
-          margin="normal"
+          margin='normal'
           required
           sx={{ mb: 2 }}
         />
         <TextField
-          label="Petition Content"
-          variant="outlined"
+          label='Petition Content'
+          variant='outlined'
           fullWidth
           value={petitionContent}
           onChange={(e) => setPetitionContent(e.target.value)}
-          margin="normal"
+          margin='normal'
           required
           sx={{ mb: 2 }}
         />
+
+        {/* New Station TextField */}
+        <TextField
+          label='Station'
+          variant='outlined'
+          fullWidth
+          value={station}
+          onChange={(e) => setStation(e.target.value)}
+          margin='normal'
+          required
+          sx={{ mb: 2 }}
+        />
+
         <DatePicker
-          placeholder="Select a date"
+          placeholder='Select a date'
           value={date ? moment(date) : null}
           onChange={(date) => setDate(date)}
           style={{
@@ -97,9 +119,9 @@ const AddPetitionForm = () => {
           }}
         />
         <Button
-          variant="contained"
+          variant='contained'
           fullWidth
-          type="submit"
+          type='submit'
           disabled={isLoading}
           sx={{
             backgroundColor: "#000000",

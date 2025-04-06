@@ -21,19 +21,25 @@ export function userSignUp(data) {
 }
 
 // Get User Data
-export function getUser() {
+export function getUser(token) {
   return axios({
     method: "get",
-    url: `${BACKEND_URL}/getUser`,
+    url: `${BACKEND_URL}/api/user/getUser`,
+    headers: {
+      Authorization: token,
+    },
   });
 }
 
 // Update User Data
-export function updateUser(data) {
+export function updateUser(data, token) {
   return axios({
     method: "put",
-    url: `${BACKEND_URL}/updateUser`,
+    url: `${BACKEND_URL}/api/user/updateUser`,
     data: data,
+    headers: {
+      Authorization: token,
+    },
   });
 }
 
@@ -64,11 +70,13 @@ export function getPetition(token) {
   });
 }
 
-// Get Petition by Handler
-export function getPetitionByHandler() {
+export function getPetitionByHandler(token) {
   return axios({
     method: "get",
-    url: `${BACKEND_URL}/getPetitionByHandler`,
+    headers: {
+      Authorization: token,
+    },
+    url: `${BACKEND_URL}/api/petition/getPetitionByHandler?handler=superadmin`, // Fetch petitions by handler (superadmin)
   });
 }
 
@@ -93,19 +101,49 @@ export function createPetition(data, token) {
   });
 }
 
-// Update Petition
-export function updatePetition(data) {
+export function updatePetition(id, status, token) {
   return axios({
     method: "put",
-    url: `${BACKEND_URL}/updatePetition`,
-    data: data,
+    url: `${BACKEND_URL}/api/petition/updatePetition`,
+    params: {
+      id: id, // Send petition ID as a query parameter
+    },
+    data: {
+      status: status, // Send updated status in the request body
+    },
+    headers: {
+      Authorization: token, // Pass token in the Authorization header
+    },
   });
 }
 
-// Delete Petition
 export function deletePetition() {
   return axios({
     method: "delete",
     url: `${BACKEND_URL}/deletePetition`,
+  });
+}
+
+export function createFeedback(petitionId, feedbackText, token) {
+  return axios({
+    method: "post",
+    url: `${BACKEND_URL}/api/feedback/createFeedback`,
+    headers: {
+      Authorization: token,
+    },
+    data: {
+      petition: petitionId,
+      feedback: feedbackText,
+    },
+  });
+}
+
+export function getFeedbackByPetition(petitionId, token) {
+  return axios({
+    method: "get",
+    url: `${BACKEND_URL}/api/feedback/getFeedbackByPetition?petition=${petitionId}`,
+    headers: {
+      Authorization: token,
+    },
   });
 }

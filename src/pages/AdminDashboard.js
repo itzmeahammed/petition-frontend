@@ -4,15 +4,23 @@ import profile from "../assets/profile-icon.svg";
 import DashboardTab from "../components/PetitionCard";
 import AddPetitionForm from "../components/petitionAdd";
 import Profile from "../components/profile";
-import AdminPetitionStats from "../components/AdminPetitionStats"; // For the analytics/chart
-import LogoutconfirmPopup from "../components/logoutPopup"; // For logout confirmation
+import AdminPetitionStats from "../components/AdminPetitionStats";
+import LogoutconfirmPopup from "../components/logoutPopup";
 import UserList from "../components/UserList"; // Import UserList component
+import StatusUpdate from "../components/StatusUpdate"; // Import StatusUpdate component
 import "../styles/pages/adminDashboard.scss";
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const navigate = useNavigate();
+
+  // Dummy petitions data (you should fetch this data from your API)
+  const petitions = [
+    { id: 1, title: "Increase Public Safety", status: "Pending" },
+    { id: 2, title: "Reduce Traffic Accidents", status: "In Process" },
+    { id: 3, title: "Increase Healthcare Funding", status: "Completed" },
+  ];
 
   const switchTab = (tab) => {
     setActiveTab(tab);
@@ -33,15 +41,15 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="dashboard-page">
-      <div className="dashboard-page-left">
-        <div className="dashboard-page-left-padding">
-          <div className="profile-picture-container">
-            <h1 className="heading-login">Hello Admin</h1>
-            <img className="profile-picture" src={profile} alt="Profile" />
+    <div className='dashboard-page'>
+      <div className='dashboard-page-left'>
+        <div className='dashboard-page-left-padding'>
+          <div className='profile-picture-container'>
+            <h1 className='heading-login'>Hello Admin</h1>
+            <img className='profile-picture' src={profile} alt='Profile' />
           </div>
 
-          <div className="tabs">
+          <div className='tabs'>
             <button
               className={`tab-button ${
                 activeTab === "dashboard" ? "active" : ""
@@ -66,15 +74,24 @@ const AdminDashboard = () => {
             >
               Analytics
             </button>
-            <button
+            {/* <button
               className={`tab-button ${
                 activeTab === "user-list" ? "active" : ""
               }`}
               onClick={() => switchTab("user-list")}
             >
               User List
+            </button> */}
+            <button
+              className={`tab-button ${
+                activeTab === "status-update" ? "active" : ""
+              }`}
+              onClick={() => switchTab("status-update")}
+            >
+              Update Petition Status
             </button>
           </div>
+
           <button
             className={`tab-button-sign ${
               activeTab === "sign-out" ? "active" : ""
@@ -86,13 +103,16 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      <div className="dashboard-page-right">
-        <div className="dashboard-right">
+      <div className='dashboard-page-right'>
+        <div className='dashboard-right'>
           {activeTab === "dashboard" && <DashboardTab />}
           {activeTab === "profile" && <Profile />}
           {activeTab === "analytics" && <AdminPetitionStats />}
-          {activeTab === "user-list" && <UserList />}{" "}
-          {/* Display UserList tab */}
+          {/* {activeTab === "user-list" && <UserList />} */}
+          {activeTab === "status-update" && (
+            <StatusUpdate petitions={petitions} />
+          )}{" "}
+          {/* Status Update Tab */}
         </div>
       </div>
 

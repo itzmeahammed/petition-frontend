@@ -74,14 +74,14 @@ const AdminPetitionStats = () => {
   };
 
   return (
-    <div className="admin-stats" style={{ width: "100%" }}>
-      <div className="chart-card">
-        <h2 className="chart-title">Petition Status Overview</h2>
+    <div className='admin-stats' style={{ width: "100%" }}>
+      <div className='chart-card'>
+        <h2 className='chart-title'>Petition Status Overview</h2>
         <Line data={petitionStatusData} />
       </div>
 
-      <div className="chart-card">
-        <h2 className="chart-title">Petitions by Category</h2>
+      <div className='chart-card'>
+        <h2 className='chart-title'>Petitions by Category</h2>
         <Bar data={petitionsByCategoryData} />
       </div>
     </div>
