@@ -1,15 +1,70 @@
 import React, { useState } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, MenuItem } from "@mui/material";
 import { DatePicker } from "antd"; // Importing DatePicker from Ant Design
 import { createPetition } from "../utils/api"; // Importing the create petition API
 import moment from "moment"; // For handling date format
 import "../styles/components/addPetition.scss";
 
+// Tamil Nadu districts
+const tamilNaduDistricts = [
+  "Chennai",
+  "Coimbatore",
+  "Salem",
+  "Madurai",
+  "Trichy",
+  "Tirunelveli",
+  "Vellore",
+  "Tirupur",
+  "Thoothukudi",
+  "Kancheepuram",
+  "Karur",
+  "Cuddalore",
+  "Dharmapuri",
+  "Dindigul",
+  "Erode",
+  "Kanyakumari",
+  "Krishnagiri",
+  "Namakkal",
+  "Perambalur",
+  "Pudukkottai",
+  "Ramanathapuram",
+  "Sivaganga",
+  "Tenkasi",
+  "Thanjavur",
+  "The Nilgiris",
+  "Virudhunagar",
+  "Ariyalur",
+  "Kallakurichi",
+  "Tiruvannamalai",
+];
+
+// Generate stations dynamically for each district
+const generateStations = (district) => {
+  const stationPattern = ["A", "B", "C", "D", "E"]; // Example station types: A1, A2, B1, B2, etc.
+  const stations = [];
+
+  // Generate 10 stations per district with a pattern like A1, A2, ..., E2
+  stationPattern.forEach((prefix) => {
+    for (let i = 1; i <= 2; i++) {
+      stations.push(`${district} ${prefix}${i}`);
+    }
+  });
+
+  return stations;
+};
+
+// Create stations mapping for each district
+const stations = {};
+tamilNaduDistricts.forEach((district) => {
+  stations[district] = generateStations(district);
+});
+
 const AddPetitionForm = () => {
   const [petitionTitle, setPetitionTitle] = useState("");
   const [petitionDescription, setPetitionDescription] = useState("");
   const [petitionContent, setPetitionContent] = useState("");
-  const [station, setStation] = useState(""); // State for the station field
+  const [district, setDistrict] = useState(""); // State for district
+  const [station, setStation] = useState(""); // State for station
   const [date, setDate] = useState(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -23,6 +78,7 @@ const AddPetitionForm = () => {
       !petitionDescription ||
       !petitionContent ||
       !date ||
+      !district ||
       !station
     ) {
       setError("All fields are required!");
@@ -35,6 +91,7 @@ const AddPetitionForm = () => {
       title: petitionTitle,
       description: petitionDescription,
       content: petitionContent,
+      district: district, // Include the district field
       station: station, // Include the station field
       date: moment(date).format("YYYY-MM-DD"), // Date format
     };
@@ -48,6 +105,7 @@ const AddPetitionForm = () => {
       setPetitionTitle("");
       setPetitionDescription("");
       setPetitionContent("");
+      setDistrict(""); // Reset district field
       setStation(""); // Reset station field
       setDate(null);
       setError("");
@@ -94,18 +152,47 @@ const AddPetitionForm = () => {
           sx={{ mb: 2 }}
         />
 
-        {/* New Station TextField */}
+        {/* District Dropdown */}
         <TextField
-          label='Station'
+          select
+          label='District'
           variant='outlined'
           fullWidth
-          value={station}
-          onChange={(e) => setStation(e.target.value)}
+          value={district}
+          onChange={(e) => setDistrict(e.target.value)}
           margin='normal'
           required
           sx={{ mb: 2 }}
-        />
+        >
+          {tamilNaduDistricts.map((districtName) => (
+            <MenuItem key={districtName} value={districtName}>
+              {districtName}
+            </MenuItem>
+          ))}
+        </TextField>
 
+        {/* Station Dropdown */}
+        {district && (
+          <TextField
+            select
+            label='Station'
+            variant='outlined'
+            fullWidth
+            value={station}
+            onChange={(e) => setStation(e.target.value)}
+            margin='normal'
+            required
+            sx={{ mb: 2 }}
+          >
+            {stations[district]?.map((stationName) => (
+              <MenuItem key={stationName} value={stationName}>
+                {stationName}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
+
+        {/* Date Picker */}
         <DatePicker
           placeholder='Select a date'
           value={date ? moment(date) : null}
@@ -118,6 +205,7 @@ const AddPetitionForm = () => {
             backgroundColor: "#f9f9f9",
           }}
         />
+
         <Button
           variant='contained'
           fullWidth

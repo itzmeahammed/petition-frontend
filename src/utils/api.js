@@ -60,23 +60,37 @@ export function userSignOut() {
     },
   });
 }
-export function getPetition(token) {
+export function getPetition(token, district, station) {
+  // Construct query parameters based on district and station for Admin
+  const params = {
+    district: district,
+    station: station,
+  };
+
   return axios({
     method: "get",
     url: `${BACKEND_URL}/api/petition/getPetition`,
     headers: {
       Authorization: token,
     },
+    params: params, // Passing district and station as query params
   });
 }
 
-export function getPetitionByHandler(token) {
+export function getPetitionByHandler(token, district) {
+  // Construct query parameters based on district for Super Admin
+  const params = {
+    handler: "superadmin", // Assuming this is the handler type we want
+    district: district, // Only pass district for Super Admin
+  };
+
   return axios({
     method: "get",
     headers: {
       Authorization: token,
     },
-    url: `${BACKEND_URL}/api/petition/getPetitionByHandler?handler=superadmin`, // Fetch petitions by handler (superadmin)
+    url: `${BACKEND_URL}/api/petition/getPetitionByHandler`,
+    params: params, // Passing district as query param
   });
 }
 

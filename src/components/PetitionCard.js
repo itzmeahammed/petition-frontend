@@ -28,14 +28,21 @@ const DashboardTab = () => {
         return;
       }
 
+      // Get district and station from localStorage
+      const district = localStorage.getItem("district");
+      const station =
+        userRole === "admin" ? localStorage.getItem("station") : null; // Station only for Admin
+
       try {
         let response;
 
         // Conditionally call the API based on the role
         if (userRole === "superadmin") {
-          response = await getPetitionByHandler(token);
+          // For Super Admin, only pass district
+          response = await getPetitionByHandler(token, district);
         } else if (userRole === "admin") {
-          response = await getPetition(token);
+          // For Admin, pass both district and station
+          response = await getPetition(token, district, station);
         } else {
           response = await getPetitionsByUser(token);
         }

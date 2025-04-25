@@ -18,6 +18,8 @@
       width: 80%;
       max-width: 400px;
       display: flex;
+      height: calc(100vh - 180px);
+      overflow-y: auto;
       flex-direction: column;
 
       .MuiTextField-root {
