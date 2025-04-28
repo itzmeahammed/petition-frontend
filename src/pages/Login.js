@@ -237,7 +237,7 @@ const LoginPage = () => {
       {showSignup ? (
         <div className='login-page'>
           <div className='login-page-right'>
-            <h1 className='heading-login'>Welcome to JusticeHub</h1>
+            <h1 className='heading-login'>ARAM-AI</h1>
             <img src={justice} alt='JusticeHub Logo' className='justice-logo' />
           </div>
           <div className='login-page-left'>
@@ -500,7 +500,7 @@ const LoginPage = () => {
           </div>
           <div className='login-page-right'>
             <h1 className='heading-login'>
-              Welcome to <br /> JusticeHub
+              Welcome to <br /> ARAM-AI
             </h1>
             <img src={justice} alt='JusticeHub Logo' className='justice-logo' />
           </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, MenuItem } from "@mui/material";
 import { DatePicker } from "antd"; // Importing DatePicker from Ant Design
 import { createPetition } from "../utils/api"; // Importing the create petition API
@@ -40,10 +40,9 @@ const tamilNaduDistricts = [
 
 // Generate stations dynamically for each district
 const generateStations = (district) => {
-  const stationPattern = ["A", "B", "C", "D", "E"]; // Example station types: A1, A2, B1, B2, etc.
+  const stationPattern = ["A", "B", "C", "D", "E"];
   const stations = [];
 
-  // Generate 10 stations per district with a pattern like A1, A2, ..., E2
   stationPattern.forEach((prefix) => {
     for (let i = 1; i <= 2; i++) {
       stations.push(`${district} ${prefix}${i}`);
@@ -66,8 +65,35 @@ const AddPetitionForm = () => {
   const [district, setDistrict] = useState(""); // State for district
   const [station, setStation] = useState(""); // State for station
   const [date, setDate] = useState(null);
+  const [firNumber, setFirNumber] = useState(""); // State for Fir Number
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [firNumbers, setFirNumbers] = useState([]); // State to store FIR numbers
+
+  // Function to generate random FIR numbers
+  const generateFirNumbers = (district, station) => {
+    const firPrefix =
+      district.charAt(0) + station.replace(/[^a-zA-Z0-9]/g, "").slice(-1); // First letter of district + last letter/number of station
+    const generatedFirNumbers = [];
+    for (let i = 1; i <= 10; i++) {
+      const firNumber = `${firPrefix}${i}`;
+      generatedFirNumbers.push(firNumber);
+    }
+    localStorage.setItem("firNumbers", JSON.stringify(generatedFirNumbers)); // Save to localStorage
+    setFirNumbers(generatedFirNumbers); // Update FIR numbers state
+  };
+
+  // Effect to generate FIR numbers when district or station changes
+  useEffect(() => {
+    if (district && station) {
+      generateFirNumbers(district, station);
+    }
+  }, [district, station]);
+
+  // Check if FIR number is valid
+  const isFirNumberValid = () => {
+    return firNumbers.includes(firNumber);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,9 +105,11 @@ const AddPetitionForm = () => {
       !petitionContent ||
       !date ||
       !district ||
-      !station
+      !station ||
+      !firNumber ||
+      !isFirNumberValid()
     ) {
-      setError("All fields are required!");
+      setError("All fields are required and the FIR number must be valid!");
       return;
     }
 
@@ -94,10 +122,10 @@ const AddPetitionForm = () => {
       district: district, // Include the district field
       station: station, // Include the station field
       date: moment(date).format("YYYY-MM-DD"), // Date format
+      // firNumber: firNumber, // Include Fir Number
     };
 
     try {
-      // Call the createPetition API
       const token = localStorage.getItem("authToken"); // Retrieve token from local storage
       const response = await createPetition(petitionData, token);
       console.log("Petition Created:", response.data);
@@ -107,6 +135,7 @@ const AddPetitionForm = () => {
       setPetitionContent("");
       setDistrict(""); // Reset district field
       setStation(""); // Reset station field
+      setFirNumber(""); // Reset Fir Number field
       setDate(null);
       setError("");
     } catch (err) {
@@ -204,6 +233,18 @@ const AddPetitionForm = () => {
             padding: "12px",
             backgroundColor: "#f9f9f9",
           }}
+        />
+
+        {/* Fir Number Field */}
+        <TextField
+          label='Fir Number'
+          variant='outlined'
+          fullWidth
+          value={firNumber}
+          onChange={(e) => setFirNumber(e.target.value)}
+          margin='normal'
+          required
+          sx={{ mb: 2 }}
         />
 
         <Button
